@@ -1,37 +1,39 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//{INSTANCE ID}.marketo.com/js/forms2/js/forms2.js"></script>
 </head>
 <body>
 
-<form id="mktoForm_123"></form>
-<script src="pkto.js"></script>
-<script>
+    <form id="mktoForm_123"></form>
+    <script src="pkto.js"></script>
+    <script>
 
-    Pkto.Form({
-        mktoFormBaseUrl : '//{INSTANCE ID}.marketo.com',
-        mktoMunchkinId  : '{MUNCHKIN ID}',
-        mktoFormId      : 123
+        Pkto.Form({
+            mktoFormBaseUrl : '//{INSTANCE ID}.marketo.com',
+            mktoMunchkinId  : '{MUNCHKIN ID}',
+            mktoFormId      : 123
 
-        /* Disabled Tracking
-        notracking      : true
-        */
+            /* Disabled Tracking
+            notracking      : true
+            */
 
-        /* Custom Success Message
-        successMessage  : 'Thank you!'
-        */
+            /* Custom Success Message
+            successMessage  : 'Thank you!'
+            */
 
-        /* beforeReady Callback
-        beforeReady     : function() {}
-        */
+            /* beforeReady Callback
+            beforeReady     : function() {}
+            */
 
-        /* afterReady Callback
-        afterReady     : function() {}
-        */
-    });
+            /* afterReady Callback
+            afterReady     : function() {}
+            */
+        });
 
-</script>
+    </script>
 
 </body>
 </html>
