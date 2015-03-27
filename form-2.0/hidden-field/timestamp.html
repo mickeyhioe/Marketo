@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Replace {INSTANCE ID} with appropriate Marketo asset values -->
+    <script src="//{INSTANCE ID}.marketo.com/js/forms2/js/forms2.js"></script>
+</head>
+<body>
+
+<!-- Replace 123 with appropriate Marketo asset value -->
+<form id="mktoForm_123"></form>
+<script>
+
+    /* Replace {INSTANCE ID}, {MUNCHKIN ID} and 123 with appropriate Marketo asset values */
+    var form = MktoForms2.loadForm('//{INSTANCE ID}.marketo.com', '{MUNCHKIN ID}', 123);
+    MktoForms2.whenReady(function(form) {
+        form.addHiddenFields({
+            'Timestamp': new Date.getTime()
+        });
+    });
+
+</script>
+
+</body>
+</html>
