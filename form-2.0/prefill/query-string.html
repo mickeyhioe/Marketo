@@ -2,14 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- Replace {INSTANCE ID} with appropriate Marketo asset values -->
     <script src="//{INSTANCE ID}.marketo.com/js/forms2/js/forms2.js"></script>
 </head>
 <body>
 
+<!-- Replace 123 with appropriate Marketo asset value -->
 <form id="mktoForm_123"></form>
 <script>
+
+    /* Replace {INSTANCE ID}, {MUNCHKIN ID} and 123 with appropriate Marketo asset values */
     var form = MktoForms2.loadForm('//{INSTANCE ID}.marketo.com', '{MUNCHKIN ID}', 123);
     MktoForms2.whenReady(function(form) {
+
+        /* @TODO Implement support for radio and check box elements */
 
         // Get URL
         var url;
@@ -24,18 +30,36 @@
         a.href          = url;
 
         // Parse Query String
-        var queryString = a.search.split('?');
-        if (queryString[1]) {
-            queryString[1].split('&').forEach(function(queryStringItem) {
-                var queryStringItemParts = queryStringItem.split('=');
-                var parameterName        = queryStringItemParts[0];
-                var parameterValue       = queryStringItemParts[1];
-                var formElement          = document.getElementById(parameterName);
-                if (formElement) {
-                    formElement.value = parameterValue;
+        a.search.replace(/^\?/, '').split('&').forEach(function(queryStringItem) {
+            var queryStringItemParts = queryStringItem.split('=');
+            var parameterName        = queryStringItemParts[0];
+            var parameterValue       = decodeURIComponent(queryStringItemParts[1]);
+            var formElement          = document.getElementById(parameterName);
+            if (formElement) {
+                switch(formElement.nodeName.toUpperCase()) {
+                    case 'SELECT':
+                        var options = formElement.getElementsByTagName('option');
+                        for (var i=0; i<options.length; i++) {
+                            if (parameterValue == options[i].value) {
+                                formElement.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        break;
+                    case 'INPUT':
+                        switch(formElement.type.toUpperCase()) {
+                            case 'TEXTAREA':
+                                formElement.textContent = parameterValue;
+                                break;
+                            default:
+                                formElement.value = parameterValue;
+                                break;
+                        }
+                        break;
                 }
-            });
-        }
+            }
+        });
+
     });
 </script>
 
