@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//{INSTANCE ID}.marketo.com/js/forms2/js/forms2.js"></script>
+</head>
+<body>
+
+<form id="mktoForm_123"></form>
+<script>
+    var form = MktoForms2.loadForm('//{INSTANCE ID}.marketo.com', '{MUNCHKIN ID}', 123);
+    MktoForms2.whenReady(function(form) {
+
+        // Get URL
+        var url;
+        if (window.location.host == parent.document.location.host) {
+            // Resource Sharing Policy : Same-Origin
+            url = parent.document.URL;
+        } else {
+            // Resource Sharing Policy : Cross-Origin
+            url = document.referrer;
+        }
+        var a           = document.createElement('a');
+        a.href          = url;
+
+        // Parse Query String
+        var queryString = a.search.split('?');
+        if (queryString[1]) {
+            queryString[1].split('&').forEach(function(queryStringItem) {
+                var queryStringItemParts = queryStringItem.split('=');
+                var parameterName        = queryStringItemParts[0];
+                var parameterValue       = queryStringItemParts[1];
+                var formElement          = document.getElementById(parameterName);
+                if (formElement) {
+                    formElement.value = parameterValue;
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
